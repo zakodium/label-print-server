@@ -1,0 +1,27 @@
+{
+  "name": "label-print-server",
+  "version": "0.0.0",
+  "description": "Print server for network-connected label printers",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "npm run eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakodium/label-print-server.git"
+  },
+  "keywords": [
+    "label",
+    "print",
+    "server",
+    "zebra",
+    "printer",
+    "network"
+  ],
+  "author": "Michael Zasso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zakodium/label-print-server/issues"
+  },
+  "homepage": "https://github.com/zakodium/label-print-server#readme"
+}
