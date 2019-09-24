@@ -4,6 +4,9 @@
   "description": "Print server for network-connected label printers",
   "main": "src/server.js",
   "scripts": {
+    "dev": "nodemon src/server.js",
+    "eslint": "eslint src scripts --cache",
+    "eslint-fix": "npm run eslint -- --fix",
     "test": "npm run eslint"
   },
   "repository": {
@@ -23,5 +26,30 @@
   "bugs": {
     "url": "https://github.com/zakodium/label-print-server/issues"
   },
-  "homepage": "https://github.com/zakodium/label-print-server#readme"
+  "homepage": "https://github.com/zakodium/label-print-server#readme",
+  "dependencies": {
+    "envalid": "^5.0.0",
+    "fastify": "^2.8.0",
+    "fastify-mongodb": "^2.0.0",
+    "fastify-plugin": "^1.6.0",
+    "ipp": "git+https://github.com/williamkapke/ipp.git",
+    "make-promises-safe": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.0",
+    "eslint-config-cheminfo": "^2.0.3",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.13.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "nodemon": "^1.19.2",
+    "pino-pretty": "^3.2.1",
+    "prettier": "^1.18.2"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
+  }
 }
