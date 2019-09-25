@@ -1,6 +1,6 @@
 'use strict';
 
-const string = { type: 'string' };
+const stringSchema = { type: 'string' };
 
 const manufacturerSchema = {
   type: 'string',
@@ -20,13 +20,14 @@ const statusSchema = {
 const printerSchema = {
   type: 'object',
   properties: {
-    _id: string,
-    name: string,
-    description: string,
+    _id: stringSchema,
+    name: stringSchema,
+    description: stringSchema,
     manufacturer: manufacturerSchema,
     service: serviceSchema,
-    address: string,
+    address: stringSchema,
     status: statusSchema,
+    statusReason: stringSchema,
   },
   required: [
     '_id',
@@ -43,5 +44,5 @@ module.exports = {
   printerSchema,
   serviceSchema,
   statusSchema,
-  string,
+  stringSchema,
 };

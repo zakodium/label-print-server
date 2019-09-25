@@ -31,7 +31,7 @@ async function getStatus(printer) {
       e.code === 'ENOTFOUND' ||
       e.code === 'ETIMEDOUT'
     ) {
-      return { status: 'UNAVAILABLE' };
+      return { status: 'UNAVAILABLE', reason: e.code };
     }
     throw e;
   }
@@ -41,7 +41,7 @@ const statusReg = /<H3>Status: <FONT COLOR="\w+">(?<status>\w+)<\/FONT><\/H3>/;
 function parseBody(body) {
   const res = statusReg.exec(body);
   if (!res) {
-    return { status: 'UNKNOWN' };
+    return { status: 'UNKNOWN', reason: 'HTML parsing error' };
   }
   return parseStatus(res.groups.status);
 }
@@ -50,7 +50,7 @@ function parseStatus(status) {
   switch (status) {
     case 'READY':
     case 'BEREIT':
-      return { status: 'READY' };
+      return { status: 'READY', reason: '' };
     default:
       return { status: 'ERROR', reason: status };
   }

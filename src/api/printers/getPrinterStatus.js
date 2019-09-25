@@ -2,7 +2,7 @@
 
 const { getStatus } = require('../../printer/status');
 
-const { statusSchema } = require('./schemas');
+const { statusSchema, stringSchema } = require('./schemas');
 
 /**
  * @type import('fastify').RouteOptions
@@ -17,8 +17,8 @@ const getPrinterStatus = {
     response: {
       200: {
         type: 'object',
-        properties: { status: statusSchema },
-        required: ['status'],
+        properties: { status: statusSchema, reason: stringSchema },
+        required: ['status', 'reason'],
       },
     },
   },
@@ -27,13 +27,13 @@ const getPrinterStatus = {
     const printer = await printers.findOne({ _id: request.params.id });
     if (!printer) return response.callNotFound();
     const status = await getStatus(printer);
-    if (printer.status !== status) {
+    if (printer.status !== status.status) {
       await printers.updateOne(
         { _id: request.params.id },
-        { $set: { status } },
+        { $set: { status: status.status, statusReason: status.reason } },
       );
     }
-    return { status };
+    return status;
   },
 };
 

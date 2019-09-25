@@ -8,7 +8,7 @@ const {
   manufacturerSchema,
   printerSchema,
   serviceSchema,
-  string,
+  stringSchema,
 } = require('./schemas');
 
 /**
@@ -21,11 +21,11 @@ const createPrinter = {
     body: {
       type: 'object',
       properties: {
-        name: string,
-        description: string,
+        name: stringSchema,
+        description: stringSchema,
         manufacturer: manufacturerSchema,
         service: serviceSchema,
-        address: string,
+        address: stringSchema,
       },
       required: ['name', 'description', 'manufacturer', 'service', 'address'],
     },
@@ -49,6 +49,7 @@ const createPrinter = {
         .send({ error: 'could not communicate with the printer' });
     }
     printer.status = printerStatus.status;
+    printer.statusReason = printerStatus.reason;
     await printers.insertOne(printer);
     return printer;
   },
