@@ -15,7 +15,8 @@ server.register(require('fastify-mongodb'), {
   database: env.MONGODB_DATABASE,
   autoReconnect: true,
 });
-require('./routes')(server);
+
+require('./api')(server);
 
 async function start() {
   try {
