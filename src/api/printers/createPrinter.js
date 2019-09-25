@@ -7,7 +7,7 @@ const { getStatus } = require('../../printer/status');
 const {
   manufacturerSchema,
   printerSchema,
-  serviceSchema,
+  protocolSchema,
   stringSchema,
 } = require('./schemas');
 
@@ -24,10 +24,10 @@ const createPrinter = {
         name: stringSchema,
         description: stringSchema,
         manufacturer: manufacturerSchema,
-        service: serviceSchema,
+        protocol: protocolSchema,
         address: stringSchema,
       },
-      required: ['name', 'description', 'manufacturer', 'service', 'address'],
+      required: ['name', 'description', 'manufacturer', 'protocol', 'address'],
     },
     response: {
       200: printerSchema,
@@ -50,6 +50,8 @@ const createPrinter = {
     }
     printer.status = printerStatus.status;
     printer.statusReason = printerStatus.reason;
+    printer.defaultFormat = 'application/zpl';
+    printer.supportedFormats = ['application/zpl'];
     await printers.insertOne(printer);
     return printer;
   },

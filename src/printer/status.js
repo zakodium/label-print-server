@@ -1,6 +1,6 @@
 'use strict';
 
-const zebraHttp = require('./services/zebraHttp');
+const zebraHttp = require('./protocols/zebraHttp');
 
 /**
  * @param printer
@@ -8,12 +8,12 @@ const zebraHttp = require('./services/zebraHttp');
  */
 async function getStatus(printer) {
   let status;
-  switch (printer.service) {
+  switch (printer.protocol) {
     case 'zebra-http':
       status = await zebraHttp.getStatus(printer);
       break;
     default:
-      throw new Error(`unhandled service type: ${printer.service}`);
+      throw new Error(`unhandled protocol: ${printer.protocol}`);
   }
   return status;
 }

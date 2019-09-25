@@ -7,7 +7,7 @@ const manufacturerSchema = {
   enum: ['zebra'],
 };
 
-const serviceSchema = {
+const protocolSchema = {
   type: 'string',
   enum: ['zebra-http'],
 };
@@ -24,25 +24,34 @@ const printerSchema = {
     name: stringSchema,
     description: stringSchema,
     manufacturer: manufacturerSchema,
-    service: serviceSchema,
+    protocol: protocolSchema,
     address: stringSchema,
     status: statusSchema,
     statusReason: stringSchema,
+    defaultFormat: stringSchema,
+    supportedFormats: {
+      type: 'array',
+      items: stringSchema,
+    },
   },
   required: [
     '_id',
     'name',
     'description',
     'manufacturer',
-    'service',
+    'protocol',
     'address',
+    'status',
+    'statusReason',
+    'defaultFormat',
+    'supportedFormats',
   ],
 };
 
 module.exports = {
   manufacturerSchema,
   printerSchema,
-  serviceSchema,
+  protocolSchema,
   statusSchema,
   stringSchema,
 };
