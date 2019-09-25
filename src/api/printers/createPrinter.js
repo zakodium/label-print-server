@@ -35,6 +35,10 @@ const createPrinter = {
   },
   async handler(request, response) {
     const printers = this.mongo.db.collection('printers');
+    const printer = {
+      _id: uuid(),
+      ...request.body,
+    };
     const printerStatus = await getStatus(printer);
     if (
       printerStatus.status !== 'UNKNOWN' ||
@@ -44,11 +48,7 @@ const createPrinter = {
         .status(404)
         .send({ error: 'could not communicate with the printer' });
     }
-    const printer = {
-      _id: uuid(),
-      ...request.body,
-      status: printerStatus.status,
-    };
+    printer.status = printerStatus.status;
     await printers.insertOne(printer);
     return printer;
   },
