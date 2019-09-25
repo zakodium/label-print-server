@@ -7,7 +7,7 @@ const ipp = require('ipp');
 
 const ip = process.argv[2];
 if (!ip) {
-  console.error('usage: node scripts/printJob <ip address>');
+  console.error('usage: node scripts/ipp/printJob <ip address>');
   process.exit(1);
 }
 

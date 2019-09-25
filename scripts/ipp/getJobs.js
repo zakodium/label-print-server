@@ -4,7 +4,7 @@ const ipp = require('ipp');
 
 const ip = process.argv[2];
 if (!ip) {
-  console.error('usage: node scripts/getJobs <ip address>');
+  console.error('usage: node scripts/ipp/getJobs <ip address>');
   process.exit(1);
 }
 

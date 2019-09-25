@@ -4,7 +4,7 @@ const ipp = require('ipp');
 
 const ip = process.argv[2];
 if (!ip) {
-  console.error('usage: node scripts/getStatus <ip address>');
+  console.error('usage: node scripts/ipp/getStatus <ip address>');
   process.exit(1);
 }
 

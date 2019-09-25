@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "eslint": "eslint src ipp --cache",
+    "eslint": "eslint src scripts --cache",
     "eslint-fix": "npm run eslint -- --fix",
     "test": "npm run eslint"
   },

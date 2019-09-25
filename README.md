@@ -2,16 +2,26 @@
 
 Print server for network-connected label printers
 
-## IPP Test scripts
+## Test scripts
 
-### Get all printer attributes
+### Zebra HTTP
+
+#### Get printer status
 
 ```console
-node scripts/getAttributes.js <ip address>
+node scripts/zebra/getStatus.js <ip address>
 ```
 
-### Get printer status (selected attributes)
+### IPP
+
+#### Get all printer attributes
 
 ```console
-node scripts/getStatus.js <ip address>
+node scripts/ipp/getAttributes.js <ip address>
+```
+
+#### Get printer status (selected attributes)
+
+```console
+node scripts/ipp/getStatus.js <ip address>
 ```

@@ -24,14 +24,14 @@ async function getStatus(printer) {
     const result = await Promise.race([request, timeout]);
     timeout.clear();
     const { body } = result;
-    return parseBody(body).status;
+    return parseBody(body);
   } catch (e) {
     if (
       e.code === 'ECONNREFUSED' ||
       e.code === 'ENOTFOUND' ||
       e.code === 'ETIMEDOUT'
     ) {
-      return 'UNAVAILABLE';
+      return { status: 'UNAVAILABLE' };
     }
     throw e;
   }
@@ -43,16 +43,16 @@ function parseBody(body) {
   if (!res) {
     return { status: 'UNKNOWN' };
   }
-  return { status: parseStatus(res.groups.status) };
+  return parseStatus(res.groups.status);
 }
 
 function parseStatus(status) {
   switch (status) {
     case 'READY':
     case 'BEREIT':
-      return 'READY';
+      return { status: 'READY' };
     default:
-      return 'UNKNOWN';
+      return { status: 'ERROR', reason: status };
   }
 }
 

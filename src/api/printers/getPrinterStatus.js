@@ -27,6 +27,12 @@ const getPrinterStatus = {
     const printer = await printers.findOne({ _id: request.params.id });
     if (!printer) return response.callNotFound();
     const status = await getStatus(printer);
+    if (printer.status !== status) {
+      await printers.updateOne(
+        { _id: request.params.id },
+        { $set: { status } },
+      );
+    }
     return { status };
   },
 };

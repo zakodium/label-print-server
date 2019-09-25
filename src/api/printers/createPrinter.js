@@ -2,6 +2,8 @@
 
 const uuid = require('uuid/v4');
 
+const { getStatus } = require('../../printer/status');
+
 const {
   manufacturerSchema,
   printerSchema,
@@ -31,12 +33,21 @@ const createPrinter = {
       200: printerSchema,
     },
   },
-  async handler(request) {
+  async handler(request, response) {
     const printers = this.mongo.db.collection('printers');
+    const printerStatus = await getStatus(printer);
+    if (
+      printerStatus.status !== 'UNKNOWN' ||
+      printerStatus.status === 'UNAVAILABLE'
+    ) {
+      return response
+        .status(404)
+        .send({ error: 'could not communicate with the printer' });
+    }
     const printer = {
       _id: uuid(),
       ...request.body,
-      status: 'UNKNOWN',
+      status: printerStatus.status,
     };
     await printers.insertOne(printer);
     return printer;
