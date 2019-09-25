@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "eslint": "eslint src scripts --cache",
+    "eslint": "eslint src scripts",
     "eslint-fix": "npm run eslint -- --fix",
     "test": "npm run eslint"
   },
@@ -42,6 +42,7 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jest": "^22.13.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "ipp": "^2.0.1",
     "nodemon": "^1.19.2",
     "pino-pretty": "^3.2.1",
     "prettier": "^1.18.2"
