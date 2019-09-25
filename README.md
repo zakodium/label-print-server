@@ -2,7 +2,7 @@
 
 Print server for network-connected label printers
 
-## Test scripts
+## IPP Test scripts
 
 ### Get all printer attributes
 
