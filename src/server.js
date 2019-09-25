@@ -8,6 +8,7 @@ const server = fastify({
   logger: {
     prettyPrint: env.isDevelopment,
   },
+  trustProxy: true,
 });
 
 server.register(require('fastify-mongodb'), {

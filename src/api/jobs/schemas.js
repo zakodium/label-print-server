@@ -5,7 +5,7 @@ const numberSchema = { type: 'number' };
 
 const jobStatusSchema = {
   type: 'string',
-  enum: ['PENDING', 'SUCCESS', 'ERROR'],
+  enum: ['PENDING', 'PRINTING', 'SUCCESS', 'ERROR'],
 };
 
 const jobSchema = {
@@ -14,9 +14,13 @@ const jobSchema = {
     _id: stringSchema,
     date: stringSchema,
     printer: stringSchema,
+    data: stringSchema,
+    format: stringSchema,
+    copies: numberSchema,
     status: jobStatusSchema,
+    clientIp: stringSchema,
   },
-  required: ['_id', 'date', 'printer', 'status'],
+  required: ['_id', 'date', 'printer', 'status', 'clientIp'],
 };
 
 module.exports = {
