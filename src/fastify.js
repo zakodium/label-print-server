@@ -1,20 +1,20 @@
 'use strict';
 
-const fastify = require('fastify');
+const createFastify = require('fastify');
 
 const env = require('./env');
 
-const server = fastify({
+const fastify = createFastify({
   logger: {
     prettyPrint: env.isDevelopment,
   },
   trustProxy: true,
 });
 
-server.register(require('fastify-mongodb'), {
+fastify.register(require('fastify-mongodb'), {
   url: env.MONGODB_URL,
   database: env.MONGODB_DATABASE,
   autoReconnect: true,
 });
 
-module.exports = server;
+module.exports = fastify;

@@ -2,11 +2,11 @@
 
 /**
  *
- * @param {import('fastify').FastifyInstance} server
+ * @param {import('fastify').FastifyInstance} fastify
  */
-function registerRoutes(server) {
-  server.register(require('./jobs/jobs'));
-  server.register(require('./printers/printers'));
+function registerRoutes(fastify) {
+  fastify.register(require('./jobs/jobs'));
+  fastify.register(require('./printers/printers'));
 }
 
 module.exports = registerRoutes;

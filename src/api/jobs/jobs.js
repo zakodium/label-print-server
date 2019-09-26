@@ -2,11 +2,11 @@
 
 /**
  *
- * @param {import('fastify').FastifyInstance} server
+ * @param {import('fastify').FastifyInstance} fastify
  */
-async function jobs(server) {
-  server.route(require('./getAllJobs')); // GET "/jobs"
-  server.route(require('./postJob')); // POST "/jobs"
+async function jobs(fastify) {
+  fastify.route(require('./getAllJobs')); // GET "/jobs"
+  fastify.route(require('./postJob')); // POST "/jobs"
 }
 
 module.exports = jobs;

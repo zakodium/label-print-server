@@ -1,9 +1,9 @@
 'use strict';
 
-const server = require('./fastify');
+const fastify = require('./fastify');
 const env = require('./env');
 
-server.register(require('fastify-swagger'), {
+fastify.register(require('fastify-swagger'), {
   exposeRoute: true,
   routePrefix: '/documentation',
   swagger: {
@@ -18,13 +18,13 @@ server.register(require('fastify-swagger'), {
   },
 });
 
-require('./api')(server);
+require('./api')(fastify);
 
 async function start() {
   try {
-    await server.listen(env.NODE_PORT);
+    await fastify.listen(env.NODE_PORT);
   } catch (err) {
-    server.log.error(err);
+    fastify.log.error(err);
     process.exit(1);
   }
 }

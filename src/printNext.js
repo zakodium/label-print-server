@@ -1,14 +1,14 @@
 'use strict';
 
-const server = require('./fastify');
+const fastify = require('./fastify');
 const { printNextJob } = require('./printer/print');
 
-server.ready().then(async () => {
+fastify.ready().then(async () => {
   try {
     await printNextJob();
-    await server.close();
+    await fastify.close();
   } catch (err) {
-    server.log.error({ err });
+    fastify.log.error({ err });
     process.exit(1);
   }
 });

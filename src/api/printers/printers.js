@@ -2,13 +2,13 @@
 
 /**
  *
- * @param {import('fastify').FastifyInstance} server
+ * @param {import('fastify').FastifyInstance} fastify
  */
-async function printers(server) {
-  server.route(require('./getAllPrinters')); // GET "/printers"
-  server.route(require('./getPrinter')); // GET "/printers/:id"
-  server.route(require('./createPrinter')); // POST "/printers"
-  server.route(require('./getPrinterStatus')); // POST "/printer/:id/status"
+async function printers(fastify) {
+  fastify.route(require('./getAllPrinters')); // GET "/printers"
+  fastify.route(require('./getPrinter')); // GET "/printers/:id"
+  fastify.route(require('./createPrinter')); // POST "/printers"
+  fastify.route(require('./getPrinterStatus')); // POST "/printer/:id/status"
 }
 
 module.exports = printers;
