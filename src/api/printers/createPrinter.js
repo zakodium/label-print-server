@@ -41,7 +41,7 @@ const createPrinter = {
     };
     const printerStatus = await getStatus(printer);
     if (
-      printerStatus.status !== 'UNKNOWN' ||
+      printerStatus.status === 'UNKNOWN' ||
       printerStatus.status === 'UNAVAILABLE'
     ) {
       return response
