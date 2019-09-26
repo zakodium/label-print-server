@@ -1,5 +1,7 @@
 'use strict';
 
+const net = require('net');
+
 const got = require('got');
 
 const timeoutMilli = 5000;
@@ -18,22 +20,20 @@ function timer() {
 
 async function getStatus(printer) {
   const address = printer.address;
+  const request = got(`http://${address}`, { timeout: timeoutMilli });
+  const timeout = timer();
   try {
-    const request = got(`http://${address}`, { timeout: timeoutMilli });
-    const timeout = timer();
     const result = await Promise.race([request, timeout]);
-    timeout.clear();
     const { body } = result;
     return parseBody(body);
-  } catch (e) {
-    if (
-      e.code === 'ECONNREFUSED' ||
-      e.code === 'ENOTFOUND' ||
-      e.code === 'ETIMEDOUT'
-    ) {
-      return { status: 'UNAVAILABLE', reason: e.code };
+  } catch (err) {
+    if (isConnectError(err)) {
+      return { status: 'UNAVAILABLE', reason: err.code };
     }
-    throw e;
+    throw err;
+  } finally {
+    request.cancel();
+    timeout.clear();
   }
 }
 
@@ -56,6 +56,40 @@ function parseStatus(status) {
   }
 }
 
+function send(address, data) {
+  return new Promise((resolve, reject) => {
+    const socket = net.connect(9100, address, () => {
+      socket.end(data, resolve);
+    });
+    socket.on('error', reject);
+  });
+}
+
+async function postPrint(printer, data) {
+  const address = printer.address;
+
+  try {
+    await send(address, data);
+    return { success: true };
+  } catch (err) {
+    if (isConnectError(err)) {
+      return { error: 'UNAVAILABLE' };
+    } else {
+      console.error('unknown error', err);
+      return { error: 'UNKNOWN', stack: err.stack };
+    }
+  }
+}
+
+function isConnectError(err) {
+  return (
+    err.code === 'ECONNREFUSED' ||
+    err.code === 'ENOTFOUND' ||
+    err.code === 'ETIMEDOUT'
+  );
+}
+
 module.exports = {
   getStatus,
+  postPrint,
 };
