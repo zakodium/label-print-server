@@ -65,17 +65,21 @@ function send(address, data) {
   });
 }
 
-async function postPrint(printer, data) {
+async function postPrint(printer, job, server) {
   const address = printer.address;
 
+  const toPrint = job.data.repeat(job.copies);
   try {
-    await send(address, data);
+    await send(address, toPrint);
     return { success: true };
   } catch (err) {
     if (isConnectError(err)) {
       return { error: 'UNAVAILABLE' };
     } else {
-      console.error('unknown error', err);
+      server.log.error({
+        reason: 'zebra-http unknown print error',
+        err,
+      });
       return { error: 'UNKNOWN', stack: err.stack };
     }
   }
