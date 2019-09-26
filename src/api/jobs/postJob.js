@@ -41,14 +41,16 @@ const postJob = {
 
     const job = {
       _id: uuid(),
+      date: new Date(),
       ...body,
       format,
       copies,
+      protocol: printer.protocol,
       status: 'PENDING',
       clientIp: request.ip,
     };
 
-    // todo try to send job and store result
+    await jobs.insertOne(job);
 
     return job;
   },
