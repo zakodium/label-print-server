@@ -4,26 +4,11 @@ const fastify = require('./fastify');
 const env = require('./env');
 const startWorker = require('./workers/start');
 
-fastify.register(require('fastify-swagger'), {
-  exposeRoute: true,
-  routePrefix: '/documentation',
-  swagger: {
-    info: {
-      title: 'Label print server',
-      description: 'Print labels using an HTTP API',
-    },
-    host: 'localhost:3000',
-    schemes: ['http'],
-    consumes: ['application/json'],
-    produces: ['application/json'],
-  },
-});
-
 require('./api')(fastify);
 
 async function start() {
   try {
-    await fastify.listen(env.NODE_PORT);
+    await fastify.listen(env.NODE_PORT, '0.0.0.0');
     startWorker('printJobs');
     startWorker('printerStatus');
   } catch (err) {
