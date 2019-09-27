@@ -58,7 +58,7 @@ function parseStatus(status) {
 
 function send(address, data) {
   return new Promise((resolve, reject) => {
-    const socket = net.connect(9100, address, () => {
+    const socket = net.connect(9100, address.split(':')[0], () => {
       socket.end(data, resolve);
     });
     socket.on('error', reject);
