@@ -1,6 +1,6 @@
 'use strict';
 
-const server = require('../fastify');
+const fastify = require('../fastify');
 
 const zebraHttp = require('./protocols/zebraHttp');
 const { updateStatus } = require('./status');
@@ -10,8 +10,9 @@ const { updateStatus } = require('./status');
  * @returns {boolean} Whether a pending job was found or not.
  */
 async function printNextJob() {
-  const jobs = server.mongo.db.collection('jobs');
-  const printers = server.mongo.db.collection('printers');
+  fastify.log.debug('print next job');
+  const jobs = fastify.mongo.db.collection('jobs');
+  const printers = fastify.mongo.db.collection('printers');
   const { value: nextJob } = await jobs.findOneAndUpdate(
     { status: 'PENDING' },
     {
@@ -23,18 +24,28 @@ async function printNextJob() {
     },
     { returnOriginal: false },
   );
-  if (nextJob === null) return false;
+  if (nextJob === null) {
+    fastify.log.debug('no job to print');
+    return false;
+  }
   const printer = await printers.findOne({ _id: nextJob.printer });
+  const log = fastify.log.child({
+    action: 'printNextJob',
+    job: nextJob._id,
+    printer: nextJob.printer,
+  });
 
   // Check status
   const status = await updateStatus(printer);
   if (status.status !== 'READY') {
+    const reason = `Printer status is ${status.status} (${status.reason})`;
+    log.info(reason);
     await jobs.updateOne(
       { _id: nextJob._id },
       {
         $set: {
           status: 'ERROR',
-          statusReason: `Printer status is ${status.status} (${status.reason})`,
+          statusReason: reason,
           statusLastUpdate: new Date(),
         },
       },
@@ -45,19 +56,21 @@ async function printNextJob() {
   let result;
   switch (printer.protocol) {
     case 'zebra-http':
-      result = await zebraHttp.postPrint(printer, nextJob, server);
+      result = await zebraHttp.postPrint(printer, nextJob, fastify);
       break;
     default:
       throw new Error(`unhandled protocol: ${printer.protocol}`);
   }
   let toStore;
   if (result.success) {
+    log.info('success');
     toStore = {
       status: 'SUCCESS',
       statusReason: '',
       statusLastUpdate: new Date(),
     };
   } else {
+    log.info(`error ${result.error}`);
     toStore = {
       status: 'ERROR',
       statusReason: result.error,

@@ -2,6 +2,7 @@
 
 const fastify = require('./fastify');
 const env = require('./env');
+const startWorker = require('./startWorker');
 
 fastify.register(require('fastify-swagger'), {
   exposeRoute: true,
@@ -23,6 +24,7 @@ require('./api')(fastify);
 async function start() {
   try {
     await fastify.listen(env.NODE_PORT);
+    startWorker('printJobs');
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
