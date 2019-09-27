@@ -4,6 +4,10 @@ const server = require('../fastify');
 
 const zebraHttp = require('./protocols/zebraHttp');
 
+/**
+ * Print the next job in PENDING state.
+ * @returns {boolean} Whether a pending job was found or not.
+ */
 async function printNextJob() {
   const jobs = server.mongo.db.collection('jobs');
   const printers = server.mongo.db.collection('printers');
@@ -12,7 +16,7 @@ async function printNextJob() {
     { $set: { status: 'PRINTING' } },
     { returnOriginal: false },
   );
-  if (nextJob === null) return;
+  if (nextJob === null) return false;
   const printer = await printers.findOne({ _id: nextJob.printer });
   let result;
   switch (printer.protocol) {
@@ -29,6 +33,7 @@ async function printNextJob() {
     toStore = { status: 'ERROR', statusReason: result.error };
   }
   await jobs.updateOne({ _id: nextJob._id }, { $set: toStore });
+  return true;
 }
 
 module.exports = {
