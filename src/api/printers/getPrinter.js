@@ -10,7 +10,11 @@ const getPrinter = {
   url: '/printers/:id',
   schema: {
     params: {
-      id: { type: 'string' },
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+      },
+      required: ['id'],
     },
     response: {
       200: printerSchema,
