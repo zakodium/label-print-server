@@ -6,6 +6,7 @@
  */
 async function jobs(fastify) {
   fastify.route(require('./getAllJobs')); // GET "/jobs"
+  fastify.route(require('./getJob')); // GET "/jobs/:id"
   fastify.route(require('./postJob')); // POST "/jobs"
 }
 

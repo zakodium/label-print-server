@@ -3,6 +3,7 @@
 const server = require('../fastify');
 
 const zebraHttp = require('./protocols/zebraHttp');
+const { updateStatus } = require('./status');
 
 /**
  * Print the next job in PENDING state.
@@ -13,11 +14,34 @@ async function printNextJob() {
   const printers = server.mongo.db.collection('printers');
   const { value: nextJob } = await jobs.findOneAndUpdate(
     { status: 'PENDING' },
-    { $set: { status: 'PRINTING' } },
+    {
+      $set: {
+        status: 'PRINTING',
+        statusReason: '',
+        statusLastUpdate: new Date(),
+      },
+    },
     { returnOriginal: false },
   );
   if (nextJob === null) return false;
   const printer = await printers.findOne({ _id: nextJob.printer });
+
+  // Check status
+  const status = await updateStatus(printer);
+  if (status.status !== 'READY') {
+    await jobs.updateOne(
+      { _id: nextJob._id },
+      {
+        $set: {
+          status: 'ERROR',
+          statusReason: `Printer status is ${status.status} (${status.reason})`,
+          statusLastUpdate: new Date(),
+        },
+      },
+    );
+    return true;
+  }
+
   let result;
   switch (printer.protocol) {
     case 'zebra-http':
@@ -28,9 +52,17 @@ async function printNextJob() {
   }
   let toStore;
   if (result.success) {
-    toStore = { status: 'SUCCESS' };
+    toStore = {
+      status: 'SUCCESS',
+      statusReason: '',
+      statusLastUpdate: new Date(),
+    };
   } else {
-    toStore = { status: 'ERROR', statusReason: result.error };
+    toStore = {
+      status: 'ERROR',
+      statusReason: result.error,
+      statusLastUpdate: new Date(),
+    };
   }
   await jobs.updateOne({ _id: nextJob._id }, { $set: toStore });
   return true;

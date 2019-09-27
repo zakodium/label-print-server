@@ -1,6 +1,6 @@
 'use strict';
 
-const { jobSchema } = require('./schemas');
+const { jobSchema, serializeJob } = require('./schemas');
 
 /**
  * @type import('fastify').RouteOptions
@@ -19,10 +19,7 @@ const getAllJobs = {
   async handler() {
     const jobs = this.mongo.db.collection('jobs');
     const result = await jobs.find({}).toArray();
-    return result.map((item) => ({
-      ...item,
-      date: item.date.toISOString(),
-    }));
+    return result.map(serializeJob);
   },
 };
 

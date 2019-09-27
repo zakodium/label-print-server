@@ -39,14 +39,17 @@ const postJob = {
         .send({ error: 'number of copies must be a positive integer' });
     }
 
+    const now = new Date();
     const job = {
       _id: uuid(),
-      date: new Date(),
+      creationDate: now,
       ...body,
       format,
       copies,
       protocol: printer.protocol,
       status: 'PENDING',
+      statusReason: '',
+      statusLastUpdate: now,
       clientIp: request.ip,
     };
 

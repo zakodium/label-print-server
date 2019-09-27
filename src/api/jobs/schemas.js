@@ -12,19 +12,38 @@ const jobSchema = {
   type: 'object',
   properties: {
     _id: stringSchema,
-    date: stringSchema,
+    creationDate: stringSchema,
     printer: stringSchema,
     data: stringSchema,
     format: stringSchema,
     copies: numberSchema,
     status: jobStatusSchema,
+    statusReason: stringSchema,
+    statusLastUpdate: stringSchema,
     clientIp: stringSchema,
   },
-  required: ['_id', 'date', 'printer', 'status', 'clientIp'],
+  required: [
+    '_id',
+    'creationDate',
+    'printer',
+    'status',
+    'statusReason',
+    'statusUpdate',
+    'clientIp',
+  ],
 };
+
+function serializeJob(job) {
+  return {
+    ...job,
+    creationDate: job.creationDate.toISOString(),
+    statusLastUpdate: job.statusLastUpdate.toISOString(),
+  };
+}
 
 module.exports = {
   jobSchema,
   numberSchema,
+  serializeJob,
   stringSchema,
 };
