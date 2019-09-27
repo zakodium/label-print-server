@@ -1,2 +1,6 @@
 node_modules
+scripts
 .gitignore
+.env
+.eslintrc.yml
+docker-compose.dev.yml
