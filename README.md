@@ -6,7 +6,7 @@ Print server for network-connected label printers
 
 The server is published on the [Docker hub](https://hub.docker.com/r/zakodium/label-print-server).
 
-To run make it run, you need a MongoDB instance accessible from the container,
+To make it run, you need a MongoDB instance accessible from the container,
 and setup the following environment variables:
 
 - `NODE_ENV`: Default: `production`.
