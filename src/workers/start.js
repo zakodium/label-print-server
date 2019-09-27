@@ -3,10 +3,10 @@
 const path = require('path');
 const { Worker } = require('worker_threads');
 
-const fastify = require('./fastify');
+const fastify = require('../fastify');
 
 function startWorker(name) {
-  const workerFile = path.join(__dirname, 'workers', `${name}Worker.js`);
+  const workerFile = path.join(__dirname, `${name}Worker.js`);
   instantiateWorker(name, workerFile);
 }
 

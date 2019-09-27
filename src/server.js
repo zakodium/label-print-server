@@ -2,7 +2,7 @@
 
 const fastify = require('./fastify');
 const env = require('./env');
-const startWorker = require('./startWorker');
+const startWorker = require('./workers/start');
 
 fastify.register(require('fastify-swagger'), {
   exposeRoute: true,
