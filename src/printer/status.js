@@ -39,7 +39,17 @@ async function updateStatus(printer) {
   return status;
 }
 
+async function updateAllStatuses() {
+  const printers = fastify.mongo.db.collection('printers');
+  const printerQuery = printers.find({});
+  for await (const printer of printerQuery) {
+    // eslint-disable-next-line no-await-in-loop
+    await updateStatus(printer);
+  }
+}
+
 module.exports = {
   getStatus,
   updateStatus,
+  updateAllStatuses,
 };

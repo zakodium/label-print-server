@@ -25,6 +25,7 @@ async function start() {
   try {
     await fastify.listen(env.NODE_PORT);
     startWorker('printJobs');
+    startWorker('printerStatus');
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

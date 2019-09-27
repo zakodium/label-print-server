@@ -3,7 +3,7 @@
 /* eslint-disable no-await-in-loop */
 
 const fastify = require('../fastify');
-const { printNextJob } = require('../printer/print');
+const { updateAllStatuses } = require('../printer/status');
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -11,9 +11,9 @@ function delay(ms) {
 
 async function work() {
   while (true) {
-    fastify.log.trace('Handle pending jobs');
-    while (await printNextJob());
-    await delay(500);
+    fastify.log.trace('Update all printer statuses');
+    await updateAllStatuses();
+    await delay(10000);
   }
 }
 

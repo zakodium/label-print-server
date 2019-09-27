@@ -10,7 +10,7 @@ const { updateStatus } = require('./status');
  * @returns {boolean} Whether a pending job was found or not.
  */
 async function printNextJob() {
-  fastify.log.debug('print next job');
+  fastify.log.trace('Print next job');
   const jobs = fastify.mongo.db.collection('jobs');
   const printers = fastify.mongo.db.collection('printers');
   const { value: nextJob } = await jobs.findOneAndUpdate(
@@ -25,7 +25,7 @@ async function printNextJob() {
     { returnOriginal: false },
   );
   if (nextJob === null) {
-    fastify.log.debug('no job to print');
+    fastify.log.trace('No job to print');
     return false;
   }
   const printer = await printers.findOne({ _id: nextJob.printer });

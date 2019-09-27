@@ -11,10 +11,13 @@ function startWorker(name) {
 }
 
 function instantiateWorker(name, workerFile) {
-  fastify.log.info(`starting worker ${name}`);
+  fastify.log.info(`Starting worker ${name}`);
   const worker = new Worker(workerFile);
+  worker.on('error', (error) => {
+    fastify.log.error(`Worker error: ${error}`);
+  });
   worker.on('exit', () => {
-    fastify.log.error(`worker ${name} was terminated`);
+    fastify.log.error(`Worker ${name} was terminated`);
     instantiateWorker(name, workerFile);
   });
 }
