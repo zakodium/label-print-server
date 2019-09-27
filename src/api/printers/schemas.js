@@ -28,6 +28,8 @@ const printerSchema = {
     address: stringSchema,
     status: statusSchema,
     statusReason: stringSchema,
+    statusLastCheck: stringSchema,
+    statusLastUpdate: stringSchema,
     defaultFormat: stringSchema,
     supportedFormats: {
       type: 'array',

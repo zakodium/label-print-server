@@ -50,6 +50,9 @@ const createPrinter = {
     }
     printer.status = printerStatus.status;
     printer.statusReason = printerStatus.reason;
+    const now = new Date();
+    printer.statusLastCheck = now;
+    printer.statusLastUpdate = now;
     printer.defaultFormat = 'application/zpl';
     printer.supportedFormats = ['application/zpl'];
     await printers.insertOne(printer);

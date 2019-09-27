@@ -1,6 +1,6 @@
 'use strict';
 
-const { getStatus } = require('../../printer/status');
+const { updateStatus } = require('../../printer/status');
 
 const { statusSchema, stringSchema } = require('./schemas');
 
@@ -26,13 +26,7 @@ const getPrinterStatus = {
     const printers = this.mongo.db.collection('printers');
     const printer = await printers.findOne({ _id: request.params.id });
     if (!printer) return response.callNotFound();
-    const status = await getStatus(printer);
-    if (printer.status !== status.status) {
-      await printers.updateOne(
-        { _id: request.params.id },
-        { $set: { status: status.status, statusReason: status.reason } },
-      );
-    }
+    const status = await updateStatus(printer);
     return status;
   },
 };

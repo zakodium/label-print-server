@@ -1,5 +1,7 @@
 'use strict';
 
+const fastify = require('../fastify');
+
 const zebraHttp = require('./protocols/zebraHttp');
 
 /**
@@ -18,6 +20,26 @@ async function getStatus(printer) {
   return status;
 }
 
+async function updateStatus(printer) {
+  const printers = fastify.mongo.db.collection('printers');
+  const status = await getStatus(printer);
+  const now = new Date();
+  const updateRequest = {
+    statusLastCheck: now,
+  };
+  if (
+    printer.status !== status.status ||
+    printer.statusReason !== status.reason
+  ) {
+    updateRequest.status = status.status;
+    updateRequest.statusReason = status.reason;
+    updateRequest.statusLastUpdate = now;
+  }
+  await printers.updateOne({ _id: printer._id }, { $set: updateRequest });
+  return status;
+}
+
 module.exports = {
   getStatus,
+  updateStatus,
 };
