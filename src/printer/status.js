@@ -23,6 +23,7 @@ async function getStatus(printer) {
 async function updateStatus(printer) {
   const printers = fastify.mongo.db.collection('printers');
   const status = await getStatus(printer);
+  fastify.log.trace({ printer: printer._id, ...status }, 'Printer status');
   const now = new Date();
   const updateRequest = {
     statusLastCheck: now,

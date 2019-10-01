@@ -1,5 +1,6 @@
 'use strict';
 
+const env = require('../env');
 const fastify = require('../fastify');
 const { updateAllStatuses } = require('../printer/status');
 
@@ -10,5 +11,5 @@ createWorker(
     fastify.log.trace('Update all printer statuses');
     await updateAllStatuses();
   },
-  { delay: 10000 },
+  { delay: env.STATUS_CHECK_DELAY },
 );

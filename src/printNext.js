@@ -8,7 +8,7 @@ fastify.ready().then(async () => {
     await printNextJob();
     await fastify.close();
   } catch (err) {
-    fastify.log.error({ err });
+    fastify.log.error(err);
     process.exit(1);
   }
 });

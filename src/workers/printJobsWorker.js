@@ -1,5 +1,6 @@
 'use strict';
 
+const env = require('../env');
 const fastify = require('../fastify');
 const { printNextJob } = require('../printer/print');
 
@@ -11,5 +12,5 @@ createWorker(
     // eslint-disable-next-line no-await-in-loop
     while (await printNextJob());
   },
-  { delay: 500 },
+  { delay: env.PRINT_JOB_DELAY },
 );

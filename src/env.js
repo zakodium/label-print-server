@@ -9,6 +9,8 @@ const validators = {
   MONGODB_DATABASE: envalid.str(),
   MONGODB_URL: envalid.url(),
   NODE_PORT: envalid.port({ default: 3000 }),
+  PRINT_JOB_DELAY: envalid.num({ default: 500 }),
+  STATUS_CHECK_DELAY: envalid.num({ default: 10000 }),
 };
 
 // eslint-disable-next-line no-process-env
