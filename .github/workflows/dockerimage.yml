@@ -1,0 +1,16 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - *
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build and push the Docker image
+      run: |
+        docker build . -t docker.pkg.github.com/zakodium/label-print-server:$GITHUB_REF
+        docker push docker.pkg.github.com/zakodium/label-print-server:$GITHUB_REF
