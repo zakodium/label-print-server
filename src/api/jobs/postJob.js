@@ -50,7 +50,7 @@ const postJob = {
       copies,
       protocol: printer.protocol,
       status: 'PENDING',
-      statusReason: '',
+      statusReason: 'created',
       statusLastUpdate: now,
       clientIp: request.ip,
     };
