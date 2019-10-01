@@ -13,6 +13,7 @@ const jobSchema = {
   properties: {
     _id: stringSchema,
     creationDate: stringSchema,
+    name: stringSchema,
     printer: stringSchema,
     data: stringSchema,
     format: stringSchema,
@@ -25,10 +26,14 @@ const jobSchema = {
   required: [
     '_id',
     'creationDate',
+    'name',
     'printer',
+    'data',
+    'format',
+    'copies',
     'status',
     'statusReason',
-    'statusUpdate',
+    'statusLastUpdate',
     'clientIp',
   ],
 };

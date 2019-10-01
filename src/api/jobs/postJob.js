@@ -14,6 +14,7 @@ const postJob = {
     body: {
       type: 'object',
       properties: {
+        name: stringSchema,
         printer: stringSchema,
         data: stringSchema,
         format: stringSchema,
@@ -32,7 +33,7 @@ const postJob = {
     const printer = await printers.findOne({ _id: body.printer });
     if (!printer) return response.callNotFound();
 
-    const { copies = 1, format = printer.defaultFormat } = body;
+    const { name = 'Print', copies = 1, format = printer.defaultFormat } = body;
     if (!Number.isInteger(copies) || copies < 1) {
       return response
         .status(400)
@@ -44,6 +45,7 @@ const postJob = {
       _id: uuid(),
       creationDate: now,
       ...body,
+      name,
       format,
       copies,
       protocol: printer.protocol,
