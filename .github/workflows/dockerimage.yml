@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Docker login
+        run: docker login docker.pkg.github.com -u $GITHUB_DOCKER_USER -p $GITHUB_DOCKER_TOKEN
       - name: Build and push the Docker image
         run: |
           docker build . -t docker.pkg.github.com/zakodium/label-print-server:${GITHUB_REF##*/}
