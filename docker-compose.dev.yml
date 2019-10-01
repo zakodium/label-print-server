@@ -10,5 +10,6 @@ services:
     image: zakodium/fake-zebra-printer:1.0.0
     ports:
       - 127.0.0.1:4001:80
+      - 127.0.0.1:9100:9100
 volumes:
   mongo-data:
