@@ -21,6 +21,7 @@ const postJob = {
         copies: numberSchema,
       },
       required: ['printer', 'data'],
+      additionalProperties: false,
     },
     response: {
       200: jobSchema,

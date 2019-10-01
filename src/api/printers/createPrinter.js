@@ -28,6 +28,7 @@ const createPrinter = {
         address: stringSchema,
       },
       required: ['name', 'description', 'manufacturer', 'protocol', 'address'],
+      additionalProperties: false,
     },
     response: {
       200: printerSchema,
