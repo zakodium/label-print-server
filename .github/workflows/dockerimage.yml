@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
   push:
     tags:
-      - '*'
+      - v*
 
 jobs:
   build:
@@ -12,5 +12,5 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build and push the Docker image
         run: |
-          docker build . -t docker.pkg.github.com/zakodium/label-print-server:$GITHUB_REF
-          docker push docker.pkg.github.com/zakodium/label-print-server:$GITHUB_REF
+          docker build . -t docker.pkg.github.com/zakodium/label-print-server:${GITHUB_REF##*/}
+          docker push docker.pkg.github.com/zakodium/label-print-server:${GITHUB_REF##*/}
