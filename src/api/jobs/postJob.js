@@ -19,6 +19,7 @@ const postJob = {
         data: stringSchema,
         format: stringSchema,
         copies: numberSchema,
+        user: stringSchema,
       },
       required: ['printer', 'data'],
       additionalProperties: false,

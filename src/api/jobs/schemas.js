@@ -22,6 +22,7 @@ const jobSchema = {
     statusReason: stringSchema,
     statusLastUpdate: stringSchema,
     clientIp: stringSchema,
+    user: { type: ['string', 'null'] },
   },
   required: [
     '_id',
@@ -35,6 +36,7 @@ const jobSchema = {
     'statusReason',
     'statusLastUpdate',
     'clientIp',
+    'user',
   ],
 };
 
