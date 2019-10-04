@@ -46,8 +46,10 @@ const postJob = {
     const job = {
       _id: uuid(),
       creationDate: now,
-      ...body,
       name,
+      printer: printer._id,
+      data: body.data,
+      user: body.user || null,
       format,
       copies,
       protocol: printer.protocol,

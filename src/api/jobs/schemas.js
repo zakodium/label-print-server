@@ -59,4 +59,5 @@ module.exports = {
   serializeJob,
   stringSchema,
   updateActionSchema,
+  jobStatusSchema,
 };
