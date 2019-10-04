@@ -14,5 +14,5 @@ jobs:
         run: docker login docker.pkg.github.com -u ${{ secrets.GITHUB_DOCKER_USER }} -p ${{ secrets.GITHUB_DOCKER_TOKEN }}
       - name: Build and push the Docker image
         run: |
-          docker build . -t docker.pkg.github.com/zakodium/label-print-server:${GITHUB_REF##*/}
-          docker push docker.pkg.github.com/zakodium/label-print-server:${GITHUB_REF##*/}
+          docker build . -t docker.pkg.github.com/zakodium/label-print-server/server:${GITHUB_REF##*/}
+          docker push docker.pkg.github.com/zakodium/label-print-server/server:${GITHUB_REF##*/}
