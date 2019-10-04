@@ -5,7 +5,7 @@ const numberSchema = { type: 'number' };
 
 const jobStatusSchema = {
   type: 'string',
-  enum: ['PENDING', 'PRINTING', 'SUCCESS', 'ERROR'],
+  enum: ['PENDING', 'PRINTING', 'SUCCESS', 'ERROR', 'CANCELLED'],
 };
 
 const jobSchema = {
@@ -40,6 +40,11 @@ const jobSchema = {
   ],
 };
 
+const updateActionSchema = {
+  type: 'string',
+  enum: ['RESTART', 'CANCEL'],
+};
+
 function serializeJob(job) {
   return {
     ...job,
@@ -53,4 +58,5 @@ module.exports = {
   numberSchema,
   serializeJob,
   stringSchema,
+  updateActionSchema,
 };
