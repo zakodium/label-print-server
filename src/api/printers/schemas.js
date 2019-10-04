@@ -9,7 +9,7 @@ const manufacturerSchema = {
 
 const protocolSchema = {
   type: 'string',
-  enum: ['zebra-http'],
+  enum: ['zebra'],
 };
 
 const statusSchema = {

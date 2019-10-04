@@ -77,7 +77,7 @@ async function postPrint(printer, job, server) {
       return { error: 'UNAVAILABLE' };
     } else {
       server.log.error({
-        reason: 'zebra-http unknown print error',
+        reason: 'zebra unknown print error',
         err,
       });
       return { error: 'UNKNOWN', stack: err.stack };

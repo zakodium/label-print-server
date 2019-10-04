@@ -8,4 +8,4 @@ if (!ip) {
   process.exit(1);
 }
 
-getStatus({ protocol: 'zebra-http', address: ip }).then(console.log);
+getStatus({ protocol: 'zebra', address: ip }).then(console.log);

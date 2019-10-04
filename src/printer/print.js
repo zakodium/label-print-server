@@ -2,7 +2,7 @@
 
 const fastify = require('../fastify');
 
-const zebraHttp = require('./protocols/zebraHttp');
+const zebra = require('./protocols/zebra');
 const { updateStatus } = require('./status');
 
 /**
@@ -55,8 +55,8 @@ async function printNextJob() {
 
   let result;
   switch (printer.protocol) {
-    case 'zebra-http':
-      result = await zebraHttp.postPrint(printer, nextJob, fastify);
+    case 'zebra':
+      result = await zebra.postPrint(printer, nextJob, fastify);
       break;
     default:
       throw new Error(`unhandled protocol: ${printer.protocol}`);

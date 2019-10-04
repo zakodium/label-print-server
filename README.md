@@ -16,7 +16,7 @@ and setup the following environment variables:
 
 ## Test scripts
 
-### Zebra HTTP
+### Zebra
 
 #### Get printer status
 
