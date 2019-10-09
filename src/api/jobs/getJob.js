@@ -2,6 +2,9 @@
 
 const { jobSchema, stringSchema, serializeJob } = require('./schemas');
 
+const getJobSchema = { ...jobSchema };
+delete getJobSchema.data;
+
 /**
  * @type import('fastify').RouteOptions
  */
@@ -17,7 +20,7 @@ const getJob = {
       required: ['id'],
     },
     response: {
-      200: jobSchema,
+      200: getJobSchema,
     },
   },
   async handler(request, response) {
