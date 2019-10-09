@@ -1,7 +1,5 @@
 'use strict';
 
-const { printerSchema } = require('./schemas');
-
 /**
  * @type import('fastify').RouteOptions
  */
@@ -28,10 +26,15 @@ const deletePrinter = {
   },
   async handler(request, response) {
     const printers = this.mongo.db.collection('printers');
+    const jobs = this.mongo.db.collection('jobs');
     const result = await printers.findOneAndDelete({
       _id: request.params.id,
     });
     if (!result.value) return response.callNotFound();
+    await jobs.updateMany(
+      { printer: request.params.id, status: 'PENDING' },
+      { $set: { status: 'CANCELLED' } },
+    );
     return { deleted: true };
   },
 };

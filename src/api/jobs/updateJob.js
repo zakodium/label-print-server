@@ -34,9 +34,18 @@ const getJob = {
   },
   async handler(request, response) {
     const jobs = this.mongo.db.collection('jobs');
+    const printers = this.mongo.db.collection('printers');
     const { action } = request.query.action;
     const status = action === 'CANCEL' ? 'CANCELLED' : 'PENDING';
-    const { value: job } = await jobs.findOneAndUpdate(
+
+    const job = await jobs.findOne({ _id: request.params.id });
+
+    const printer = await printers.findOne({ _id: job.printer });
+    if (printer === null) {
+      return response.callNotFound();
+    }
+
+    const { value: jobUpdated } = await jobs.findOneAndUpdate(
       { _id: request.params.id },
       {
         $set: {
@@ -49,8 +58,8 @@ const getJob = {
         returnOriginal: false,
       },
     );
-    if (job === null) return response.callNotFound();
-    return serializeJob(job);
+    if (jobUpdated === null) return response.callNotFound();
+    return serializeJob(jobUpdated);
   },
 };
 
