@@ -68,7 +68,7 @@ function send(address, data) {
 async function postPrint(printer, job, server) {
   const address = printer.address;
 
-  const toPrint = job.data.repeat(job.copies);
+  const toPrint = `${job.data}\n`.repeat(job.copies);
   try {
     await send(address, toPrint);
     return { success: true };
