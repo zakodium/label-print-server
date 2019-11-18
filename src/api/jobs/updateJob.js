@@ -35,7 +35,8 @@ const getJob = {
   async handler(request, response) {
     const jobs = this.mongo.db.collection('jobs');
     const printers = this.mongo.db.collection('printers');
-    const { action } = request.query.action;
+
+    const { action } = request.query;
     const status = action === 'CANCEL' ? 'CANCELLED' : 'PENDING';
 
     const job = await jobs.findOne({ _id: request.params.id });
