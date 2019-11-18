@@ -48,6 +48,7 @@ const getJobs = {
     if (typeof request.query.limit !== 'undefined') {
       find.limit(request.query.limit);
     }
+    find.sort({ creationDate: -1 });
     const result = await find.toArray();
     return result.map(serializeJob);
   },
