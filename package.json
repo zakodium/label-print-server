@@ -28,24 +28,24 @@
   },
   "homepage": "https://github.com/zakodium/label-print-server#readme",
   "dependencies": {
-    "envalid": "^5.0.0",
-    "fastify": "^2.8.0",
+    "envalid": "^6.0.0",
+    "fastify": "^2.10.0",
     "fastify-mongodb": "^2.0.0",
     "fastify-plugin": "^1.6.0",
     "got": "^9.6.0",
-    "make-promises-safe": "^5.0.0",
+    "make-promises-safe": "^5.1.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "eslint": "^6.4.0",
-    "eslint-config-cheminfo": "^2.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-cheminfo": "^2.0.4",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-prettier": "^3.1.1",
     "ipp": "^2.0.1",
-    "nodemon": "^1.19.2",
-    "pino-pretty": "^3.2.1",
-    "prettier": "^1.18.2"
+    "nodemon": "^1.19.4",
+    "pino-pretty": "^3.4.0",
+    "prettier": "^1.19.1"
   },
   "prettier": {
     "arrowParens": "always",
