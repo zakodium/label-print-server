@@ -1,5 +1,6 @@
 {
   "name": "label-print-server",
+  "private": true,
   "version": "1.2.5",
   "description": "Print server for network-connected label printers",
   "main": "src/server.js",
