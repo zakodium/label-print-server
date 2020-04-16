@@ -4,9 +4,7 @@
 
 const fastify = require('../fastify');
 
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const delay = require('./delay');
 
 function createWorker(work, options) {
   fastify

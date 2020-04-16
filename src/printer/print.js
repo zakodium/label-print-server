@@ -7,7 +7,7 @@ const { updateStatus } = require('./status');
 
 /**
  * Print the next job in PENDING state.
- * @returns {boolean} Whether a pending job was found or not.
+ * @returns {Promise<boolean>} Whether a pending job was found or not.
  */
 async function printNextJob() {
   fastify.log.trace('Print next job');
