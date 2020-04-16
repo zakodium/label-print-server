@@ -1,7 +1,7 @@
 'use strict';
 
-const fastify = require('./fastify');
 const env = require('./env');
+const fastify = require('./fastify');
 const startWorker = require('./workers/start');
 
 require('./api')(fastify);
