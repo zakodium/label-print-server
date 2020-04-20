@@ -22,7 +22,7 @@ async function printNextJob() {
         statusLastUpdate: new Date(),
       },
     },
-    { returnOriginal: false },
+    { sort: { creationDate: 1 }, returnOriginal: false },
   );
   if (nextJob === null) {
     fastify.log.trace('No job to print');
