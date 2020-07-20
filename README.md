@@ -1,6 +1,6 @@
 # label-print-server
 
-Print server for network-connected label printers
+Print server for network-connected label printers.
 
 ## Usage with Docker
 

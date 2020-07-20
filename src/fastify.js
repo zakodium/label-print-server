@@ -22,7 +22,6 @@ const fastify = createFastify({
 fastify.register(require('fastify-mongodb'), {
   url: env.MONGODB_URL,
   database: env.MONGODB_DATABASE,
-  autoReconnect: true,
 });
 
 module.exports = fastify;
