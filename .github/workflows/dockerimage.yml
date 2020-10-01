@@ -16,5 +16,8 @@ jobs:
         run: echo $GHCR_BOT_TOKEN | docker login ghcr.io -u zakodium-bot --password-stdin
       - name: Build and push the Docker image
         run: |
-          docker build . -t ghcr.io/zakodium/label-print-server:${GITHUB_REF##*/}
-          docker push ghcr.io/zakodium/label-print-server:${GITHUB_REF##*/}
+          IMAGE_NAME=ghcr.io/zakodium/label-print-server
+          docker build . -t $IMAGE_NAME
+          docker push
+          docker tag $IMAGE_NAME $IMAGE_NAME:${GITHUB_REF##*/}
+          docker push $IMAGE_NAME:${GITHUB_REF##*/}
