@@ -11,9 +11,7 @@ createWorker(
   async () => {
     fastify.log.trace('Handle pending jobs');
     while (true) {
-      // eslint-disable-next-line no-await-in-loop
       await printNextJob();
-      // eslint-disable-next-line no-await-in-loop
       await delay(100);
     }
   },

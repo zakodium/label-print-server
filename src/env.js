@@ -13,7 +13,6 @@ const validators = {
   STATUS_CHECK_DELAY: envalid.num({ default: 10000 }),
 };
 
-// eslint-disable-next-line no-process-env
 module.exports = envalid.cleanEnv(process.env, validators, {
   strict: true,
 });

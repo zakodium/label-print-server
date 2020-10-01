@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint-disable no-await-in-loop */
-
 const fastify = require('../fastify');
 
 const delay = require('./delay');
