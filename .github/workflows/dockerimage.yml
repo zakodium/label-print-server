@@ -18,6 +18,6 @@ jobs:
         run: |
           IMAGE_NAME=ghcr.io/zakodium/label-print-server
           docker build . -t $IMAGE_NAME
-          docker push
+          docker push $IMAGE_NAME
           docker tag $IMAGE_NAME $IMAGE_NAME:${GITHUB_REF##*/}
           docker push $IMAGE_NAME:${GITHUB_REF##*/}
