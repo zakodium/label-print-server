@@ -11,7 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker login
-        run: docker login ghcr.io -u ${{ secrets.GITHUB_DOCKER_USER }} -p ${{ secrets.GITHUB_DOCKER_TOKEN }}
+        env:
+          GHCR_BOT_TOKEN: ${{ secrets.GHCR_BOT_TOKEN }}
+        run: echo $GHCR_BOT_TOKEN | docker login ghcr.io -u zakodium-bot --password-stdin
       - name: Build and push the Docker image
         run: |
           docker build . -t ghcr.io/zakodium/label-print-server:${GITHUB_REF##*/}

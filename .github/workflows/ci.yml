@@ -11,14 +11,12 @@ jobs:
     name: Lint with ESLint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 12
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
       - name: npm install and eslint
         run: |
           npm ci
           npm run eslint
-        env:
-          CI: true
