@@ -40,6 +40,7 @@ const createPrinter = {
       _id: uuid(),
       ...request.body,
     };
+
     const printerStatus = await getStatus(printer);
     if (
       printerStatus.status === 'UNKNOWN' ||
