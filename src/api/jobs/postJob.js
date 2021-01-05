@@ -1,6 +1,6 @@
 'use strict';
 
-const uuid = require('@lukeed/uuid');
+const { v4: uuid } = require('@lukeed/uuid');
 
 const { jobSchema, numberSchema, stringSchema } = require('./schemas');
 
