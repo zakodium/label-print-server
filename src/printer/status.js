@@ -26,10 +26,10 @@ async function checkStatusAvailable(address, protocol) {
     printerStatus.status === 'UNKNOWN' ||
     printerStatus.status === 'UNAVAILABLE'
   ) {
-    return { isOk: false };
+    return { check: false };
   }
   return {
-    isOk: true,
+    check: true,
     status: printerStatus.status,
     reason: printerStatus.reason,
   };
