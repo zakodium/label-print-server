@@ -17,7 +17,6 @@ const updatePrinter = {
         name: stringSchema,
         description: stringSchema,
         address: stringSchema,
-        protocol: protocolSchema,
       },
     },
     response: {
@@ -26,26 +25,44 @@ const updatePrinter = {
   },
   async handler(request, response) {
     const printers = this.mongo.db.collection('printers');
-    const result = await printers.findOne({
+    const printer = await printers.findOne({
       _id: request.params.id,
     });
 
-    if (result === null) return response.callNotFound();
-    const { name, description, address, protocol } = request.body;
+    if (printer === null) return response.callNotFound();
+    const { name, description, address } = request.body;
 
-    if (address !== result.address) {
-      const check = await checkStatusAvailable(address, protocol);
+    if (address !== printer.address) {
+      const { check, status, reason } = await checkStatusAvailable(
+        address,
+        printer.protocol,
+      );
       if (!check) {
         return response
           .status(404)
           .send({ error: 'could not communicate with the printer' });
       }
-    }
 
-    if (name !== result.name || description !== result.description) {
+      const now = new Date();
+
       await printers.updateOne(
         { _id: request.params.id },
-        { $set: { name, description, address } },
+        {
+          $set: {
+            address,
+            statusLastCheck: now,
+            statusLastUpdate: now,
+            status,
+            reason,
+          },
+        },
+      );
+    }
+
+    if (name !== printer.name || description !== printer.description) {
+      await printers.updateOne(
+        { _id: request.params.id },
+        { $set: { name, description } },
       );
     }
 

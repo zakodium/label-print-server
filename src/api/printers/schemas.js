@@ -17,15 +17,6 @@ const statusSchema = {
   enum: ['UNKNOWN', 'READY', 'UNAVAILABLE', 'ERROR'],
 };
 
-const printerUpdateSchema = {
-  type: 'object',
-  properties: {
-    name: stringSchema,
-    description: stringSchema,
-    address: stringSchema,
-  },
-};
-
 const printerSchema = {
   type: 'object',
   properties: {
@@ -65,5 +56,4 @@ module.exports = {
   protocolSchema,
   statusSchema,
   stringSchema,
-  printerUpdateSchema,
 };
