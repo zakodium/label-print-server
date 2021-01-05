@@ -20,6 +20,21 @@ async function getStatus(printer) {
   return status;
 }
 
+async function checkStatusAvailable(address, protocol) {
+  const printerStatus = await getStatus({ address, protocol });
+  if (
+    printerStatus.status === 'UNKNOWN' ||
+    printerStatus.status === 'UNAVAILABLE'
+  ) {
+    return { check: false };
+  }
+  return {
+    check: true,
+    status: printerStatus.status,
+    reason: printerStatus.reason,
+  };
+}
+
 async function updateStatus(printer) {
   const printers = fastify.mongo.db.collection('printers');
   const status = await getStatus(printer);
@@ -52,4 +67,5 @@ module.exports = {
   getStatus,
   updateStatus,
   updateAllStatuses,
+  checkStatusAvailable,
 };
