@@ -2,7 +2,7 @@
 
 const { checkStatusAvailable } = require('../../printer/status');
 
-const { stringSchema, protocolSchema, printerSchema } = require('./schemas');
+const { stringSchema, printerSchema } = require('./schemas');
 
 /**
  * @type import('fastify').RouteOptions
