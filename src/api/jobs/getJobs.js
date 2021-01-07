@@ -22,6 +22,7 @@ const getJobs = {
         status: jobStatusSchema,
         limit: numberSchema,
         user: stringSchema,
+        skip: numberSchema,
       },
       additionalProperties: false,
     },
@@ -48,6 +49,11 @@ const getJobs = {
     if (typeof request.query.limit !== 'undefined') {
       find.limit(request.query.limit);
     }
+
+    if (typeof request.query.skip !== 'undefined') {
+      find.skip(request.query.skip);
+    }
+
     find.sort({ creationDate: -1 });
     const result = await find.toArray();
     return result.map(serializeJob);
