@@ -34,14 +34,14 @@
     "fastify": "^3.29.4",
     "fastify-mongodb": "^2.0.1",
     "fastify-plugin": "^3.0.0",
-    "got": "^11.8.5",
+    "got": "^12.5.3",
     "make-promises-safe": "^5.1.0"
   },
   "devDependencies": {
     "@zakodium/eslint-config": "^2.2.1",
     "eslint": "^7.17.0",
     "ipp": "^2.0.1",
-    "nodemon": "^2.0.6",
+    "nodemon": "^2.0.20",
     "pino-pretty": "^4.3.0",
     "prettier": "^2.2.1"
   },
